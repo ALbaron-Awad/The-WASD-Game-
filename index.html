@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<title>لعبة الزوايا</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="UTF-8">
+</haed>
+<body>
+<p> <h3>The WASD Game ! </h3></p>
+<p><h4> Game Instructions : </h4>
+
+<ol>
+  <li>Use the arrows key to move the Object .</li>
+  <li>W to go Up .</li>
+  <li>A to go Left .</li>
+  <li>S to go Down .</li>
+  <li>D to go Right .</li>
+</ol>  
+ 
+</p>
+<canvas id="renderCanvas" width="500" height="400"></canvas>
+<script src="webgl-utils.js"></script>
+<script src="gl-matrix.js"></script>
+
+<script>
+ 
+  var canvas = document.getElementById("renderCanvas");
+	  var gl = canvas.getContext("webgl2");
+	  if (!gl) {
+		alert("webgl2 is not supported");
+	  }
+	  document.addEventListener("keydown",keyboard);
+ canvas.addEventListener("click",mousaClick);
+	
+
+var vertexShaderSource =
+    `#version 300 es
+    
+    in vec2 a_Position;
+    uniform mat4 u_ModelMatrix;
+
+    void main()
+    {
+        gl_Position = u_ModelMatrix * vec4(a_Position, 0.0, 1.0);
+    }`;
+
+var fragmentShaderSource =
+    `#version 300 es
+    
+    precision mediump float;
+    uniform vec3 u_Color;
+    out vec4 fragColor;
+
+    void main()
+    {
+        fragColor = vec4(u_Color, 1.0);
+    }`;
+
+var gl = document.getElementById("renderCanvas").getContext("webgl2");
+
+var vShader = gl.createShader(gl.VERTEX_SHADER);
+gl.shaderSource(vShader, vertexShaderSource);
+gl.compileShader(vShader);
+
+var fShader = gl.createShader(gl.FRAGMENT_SHADER);
+gl.shaderSource(fShader, fragmentShaderSource);
+gl.compileShader(fShader);
+
+var program = gl.createProgram();
+gl.attachShader(program, vShader);
+gl.attachShader(program, fShader);
+gl.linkProgram(program);
+gl.useProgram(program);
+
+	// to change the look of your object .
+// size of the object 
+var vertices = new Float32Array([
+    -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5
+]);
+
+var vbo = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+var a_Position = gl.getAttribLocation(program, "a_Position");
+gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+gl.enableVertexAttribArray(a_Position);
+
+			// color of the object 
+
+var u_Color = gl.getUniformLocation(program, "u_Color");
+gl.uniform3f(u_Color, 0, 0.52, 1);
+
+var modelMatrix = mat4.create();
+var pos = { x: 0.1, y: 0.1 };
+var step = 0.2;
+ //////////////function related to the Requirement of the course :
+ 
+ /// حرف (ث) للأتجاه للأعلى 
+ 
+ ///حرف (ش) للأتجاه لليسار
+ 
+ ///حرف (س) للأتجاه للأسفل
+ 
+ /// حرف (ي) للأتجاه لليمين 
+ // WASD function and Arrow
+window.addEventListener('keydown', function (event)
+{
+    if (event.keyCode === 87 || event.keyCode === 38) // W, Up
+        pos.y += step;
+    else if (event.keyCode === 65 || event.keyCode === 37) // A, Left
+        pos.x -= step;
+    else if (event.keyCode === 83 || event.keyCode === 40) // S, Down
+        pos.y -= step;
+    else if (event.keyCode === 68 || event.keyCode === 39) // D, Right
+        pos.x += step;
+    draw(pos);
+});
+
+draw(pos);
+
+	function draw(pos)
+{
+    mat4.identity(modelMatrix);
+    mat4.translate(modelMatrix, modelMatrix, vec3.fromValues(pos.x, pos.y, 0.0));
+    mat4.scale(modelMatrix, modelMatrix, vec3.fromValues(0.1, 0.1, 0.1));
+
+    var u_ModelMatrix = gl.getUniformLocation(program, "u_ModelMatrix");
+    gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix);
+ // background-color
+    gl.clearColor(0.999, 0.70, 0.53, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+	function keyboard(event){
+		let code = event.which || event.keyCode; // Use either which or keyCode, depending on browser support
+		//alert(code);
+	}
+	function mousaClick(event){
+		//alert(event.offsetX + ' ' + event.offsetY); //	Returns the coordinates of the mouse pointer relative to the position of the edge of the target element
+	}
+
+	//Call drawScene draw the first frame
+
+	drawScene();
+</script>
+
+</body>
+</html>

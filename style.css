@@ -1,0 +1,20 @@
+
+body{
+background-color : #333435 ;
+border-bottom : #E05B1C 2px solid ;
+}
+* {box-sizing: border-box;}
+body  h3   {
+	color : #3C82F5;
+	
+
+}
+body p {
+	
+	float : right ;
+}
+
+ol  li {
+	
+	color : #3C82F5;
+}
