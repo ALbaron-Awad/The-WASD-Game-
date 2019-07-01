@@ -1,14 +1,17 @@
 # The-WASD-Game-
 Simple (WASD) game
 
-The (WASD) Game ! 
-			**using html-css-JavaScript[gl-matrix] **
-      ###webgl 
-			Features in this game:
+The (WASD) Game !
 
-			1-Pressing on the keyboard can give you the  ASCII Code.
+**using html-css-JavaScript[gl-matrix] **
+###webgl 
 			
-			2-You can  find out points on the axes using the mouse.
+		
+Features in this game:
+
+1-Pressing on the keyboard can give you the  ASCII Code.
+			
+2-You can  find out points on the axes using the mouse.
 
 
 
