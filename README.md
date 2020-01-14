@@ -3,15 +3,14 @@ Simple (WASD) game
 
 The (WASD) Game !
 
-using html-css-JavaScript[gl-matrix] 
-##webgl 
-			
+using html-css-JavaScript,gl-matrix		
 		
 Features in this game:
 
 1-Pressing on the keyboard can give you the  ASCII Code.
 			
-2-You can  find out points on the axes using the mouse.
+2-You can  find out points on the Coordinate Axes
+ using the mouse.
 
 
 
@@ -30,4 +29,4 @@ Features in this game:
 *to turn Features number two  on disable the  comment from file(index.html) line 141 .
         
         
-###some code copying from another source###
+###some code copying from open source###
