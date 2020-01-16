@@ -24,9 +24,9 @@ Features in this game:
 			5-D to go Right .
 				
         
-*to turn Features number one on disable the  comment from file (index.html) line 138 .
+*to turn Features (number one)) on ,,disable the  comment from file (index.html) line 138 .
 
-*to turn Features number two  on disable the  comment from file(index.html) line 141 .
+*to turn Features ((number two))  on ,, disable the  comment from file(index.html) line 141 .
         
         
-###some code copying from open source###
+#some code copying from open source.
